@@ -1,0 +1,31 @@
+!USE rtchecks
+!#define bodyforce
+!#define scalar
+gamma=0
+USE dnsdata
+USE dnsdirect
+read_restart_file; cont=FLOOR(time/dt_field)
+outstats()
+
+WRITE "V(" LO(V),LO2(V),LO3(V)")	TO	V(" HI(V),HI2(V),HI3(V)")"
+
+FILE u_dat
+FILE v_dat
+FILE w_dat
+
+u_dat = OPEN("u.dat")
+v_dat = OPEN("v.dat")
+w_dat = OPEN("w.dat")
+
+LOOP FOR k=LO2(V) TO HI2(V)
+	LOOP FOR i=LO(V) TO HI(V)
+		LOOP FOR j=LO3(V) TO HI3(V)
+			WRITE TO u_dat V.u.REAL(i,k,j)
+			WRITE TO u_dat V.u.IMAG(i,k,j)
+			WRITE TO v_dat V.v.REAL(i,k,j)
+			WRITE TO v_dat V.v.IMAG(i,k,j)
+			WRITE TO w_dat V.w.REAL(i,k,j)
+			WRITE TO w_dat V.w.IMAG(i,k,j)
+		REPEAT LOOP
+	REPEAT LOOP
+REPEAT LOOP
