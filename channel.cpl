@@ -5,7 +5,7 @@ gamma=0
 USE dnsdata
 USE dnsdirect
 read_restart_file; cont=FLOOR(time/dt_field)
-outstats()
+!outstats()
 
 WRITE "V(" LO(V),LO2(V),LO3(V)")	TO	V(" HI(V),HI2(V),HI3(V)")"
 
@@ -26,6 +26,7 @@ LOOP FOR k=LO2(V) TO HI2(V)
 			WRITE TO v_dat V.v.IMAG(i,k,j)
 			WRITE TO w_dat V.w.REAL(i,k,j)
 			WRITE TO w_dat V.w.IMAG(i,k,j)
+			! WRITE "u("i","k","j")=" V.u(i,k,j)
 		REPEAT LOOP
 	REPEAT LOOP
 REPEAT LOOP

@@ -17,8 +17,31 @@ USE dnsdirect
 USE convol_trasp
 time=0
 
-convol_trasp(VV,V); ytoz;	write_on_disk
+FILE u_dat
+FILE v_dat
+FILE w_dat
 
+u_dat = OPEN("u.dat")
+v_dat = OPEN("v.dat")
+w_dat = OPEN("w.dat")
+
+WRITE "V(" LO(V),LO2(V),LO3(V)")	TO	V(" HI(V),HI2(V),HI3(V)")"
+
+LOOP FOR k=LO2(V) TO HI2(V)
+	LOOP FOR i=LO(V) TO HI(V)
+		LOOP FOR j=LO3(V) TO HI3(V)
+			READ FROM u_dat V.u.REAL(i,k,j)
+			READ FROM u_dat V.u.IMAG(i,k,j)
+			READ FROM v_dat V.v.REAL(i,k,j)
+			READ FROM v_dat V.v.IMAG(i,k,j)
+			READ FROM w_dat V.w.REAL(i,k,j)
+			READ FROM w_dat V.w.IMAG(i,k,j)
+		REPEAT LOOP
+	REPEAT LOOP
+REPEAT LOOP
+!//convol_trasp(VV,V);
+ytoz;	write_on_disk
+!outstats()
 
 
 IF rank=0 THEN WRITE; WRITE "<Simulation Ended>"; WRITE; WRITE; END IF
